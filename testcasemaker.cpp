@@ -1,3 +1,5 @@
+//Author: Christian F. Sosua
+// CSCI 2270 data structures section 104;
 #include<iostream>
 #include<sstream>
 #include<fstream>
@@ -16,6 +18,7 @@ int main(void)
     cout<< "enter the destination file name (if this files does not exist in the directory a new one will be made)"<< endl;
     getline(cin, outfile);
     cout<< "enter how many lines you would like to be copied to the new file"<< endl;
+    cout<< "Please note if you are borrowing this, the first line in any file read in will be ignored"<< endl;
     getline(cin, holder);
     lines=stoi(holder);
     ifstream indata;
@@ -46,6 +49,13 @@ int main(void)
     cout<< endl;
     cout<< endl;
     cout<< "Wrting to file "<< outfile<< endl;
-    
+    ofstream out;
+    out.open(outfile);
+    for(int i=0; i<lines;i++)
+    {
+       cout<< "writing line "<< i+1<< " of "<< lines<< endl;
+       out<<data[i]<< endl;
+    }
+    cout<< "Process completed"<< endl;
     return 0;
 }
