@@ -51,6 +51,7 @@ int main(void)
     cout<< "Wrting to file "<< outfile<< endl;
     ofstream out;
     out.open(outfile);
+    out<<"Name,Priotiry,Treatment"<< endl;
     for(int i=0; i<lines;i++)
     {
        cout<< "writing line "<< i+1<< " of "<< lines<< endl;
