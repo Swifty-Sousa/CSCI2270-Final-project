@@ -7,6 +7,7 @@ struct pat
     string name;
     int priority;
     int treatment;
+    *pat next;
     pat(){}
     pat( string n, int p, in e)
     {
