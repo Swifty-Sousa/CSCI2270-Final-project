@@ -11,6 +11,7 @@ class llpq
         void insert(pat);// takes in patient struct
         void build(string); // filename
         void dequeue(); // removes from head;
+        void printLLPQ();// for checking my answers with expected output from moodle;
         *pat head;
         *pat tail; 
 };

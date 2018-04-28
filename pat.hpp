@@ -7,7 +7,9 @@ struct pat
     string name;
     int priority;
     int treatment;
+    // next and prev only for LL implementation;
     *pat next;
+    *pat prev;
     pat(){}
     pat( string n, int p, in e)
     {
