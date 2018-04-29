@@ -16,14 +16,17 @@ void llpq::insert(pat *in)
 {
     if(head==NULL)
     {
+        //cout<< "this case is happening"<< endl;
         // tail will also be NULL therefore the queue is empty
         head=in;
         tail=in;
         return;
     }
     pat* temp=head;
-    while(temp->next!=NULL)
+    while(temp!=NULL)
     {
+        //cout<< "temp = "<< temp->name<< ", " <<temp->priority<< ", " << temp->treatment;
+        //cout<< " compaterd to in =" <<in->name<< ", "<< in ->priority<< ", " << in->treatment<< endl;
         if(in->priority>temp->priority)
         {
             //test if at tail, insert
@@ -41,8 +44,10 @@ void llpq::insert(pat *in)
         }
         else if(in->priority<temp->priority)
         {
+            //cout<< "hello"<<endl;
             if(temp==head)
             {
+                //cout<< "this should happen"<<endl;
                 in->next=temp;
                 temp->prev=in;
                 head=in;
@@ -89,18 +94,19 @@ void llpq::insert(pat *in)
             }
             else
             {
-                if(temp==tail)
+                if(temp==head)
                 {
-                    temp->next=in;
-                    in->prev=temp;
-                    tail=in;
+                    in->next=temp;
+                    temp->prev=in;
+                    head=in;
                     return;
                 }
-                else
-                temp->next->prev=in;
-                in->next=temp->next;
-                temp->next=in;
-                in->prev=temp;
+                // insert before
+                in->prev=temp->prev;
+                temp->prev->next=in;
+                in->next=temp;
+                temp->prev=in;
+                return;
             }
             
         }
@@ -125,43 +131,30 @@ void llpq::build(string filename)
     {
         stringstream ss(holder);
         getline(ss,segment, ',');
-        cout<< segment<< endl;
         nam=segment;
         getline(ss, segment, ',');
-        cout<< segment<< endl;
         pri= stoi(segment);
         getline(ss,segment, ',');
-        cout<< segment<< endl;
         treat= stoi(segment);
-        pat temp(nam, pri, treat);
-        insert(&temp);
+        pat *temp= new pat(nam, pri, treat);
+        insert(temp);
     }
     datafile.close();
 }
 void llpq::printLLPQ()
 {
     pat * temp=head;
-    cout<<"Rank     patient, Priotity, Treatment"<< endl;
+    cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
     int i=1;
-    if(head!=NULL)
+    if(temp->next==NULL)
     {
-        cout<< "head is not NULL"<< endl;
+        cout<< "the linked list only has one item"<< endl;
     }
-    if(tail!=NULL)
+    while(temp!=NULL)
     {
-        cout<< "tail is not NULL"<< endl;
-    }
-    if(temp!=NULL)
-    {
-        cout<< "temp is not NULL"<< endl;
-    }
-    cout<<temp->name<<endl;
-    return;
-    //cout<< temp->priority<< endl;
-    //cout<< temp->treatment<< endl;
-    while(temp->next!=NULL)
-    {
-       cout<<i<<":"<< "      "<<temp->name<< ", "<<temp->priority<< ", "<< temp->treatment<< endl;
+       cout<<i<<":"<< '\t'<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
+       temp=temp->next;
+       i++;
     }
 }
 void llpq::dequeue()

@@ -14,10 +14,9 @@ int main(int argc, char* argv[])
         cout<< "Program requires a filename"<< endl;
     }
     llpq test;
-    cout<<"1"<< endl;
     test.build(argv[1]);
-    cout<< "2"<< endl;
+    //cout<< "if you see this it is building"<< endl;
     test.printLLPQ();
-    //cout<< "3"<< endl;
+    cout<< "testcase complete"<< endl;
     return 0;
 }
