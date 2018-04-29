@@ -1,26 +1,28 @@
 #include"LLPQ.hpp"
 #include<fstream>
 #include<sstream>
+#include<string>
+#include<iostream>
 #include"pat.hpp"
-
+using namespace std;
 llpq::llpq(){
     head=NULL;
     tail=NULL;
 } //default constutor
 
-llqp::~llpq(){} // defualt destructor
+llpq::~llpq(){} // defualt destructor
  
-void llpq::insert(pat in)
+void llpq::insert(pat *in)
 {
-    if(head ==NULL)
+    if(head==NULL)
     {
         // tail will also be NULL therefore the queue is empty
         head=in;
         tail=in;
         return;
     }
-    * pat temp=head;
-    * while(temp->next!=NULL)
+    pat* temp=head;
+    while(temp->next!=NULL)
     {
         if(in->priority>temp->priority)
         {
@@ -48,7 +50,7 @@ void llpq::insert(pat in)
             }
             // insert before
             in->prev=temp->prev;
-            temp->pre->next=in;
+            temp->prev->next=in;
             in->next=temp;
             temp->prev=in;
             return;
@@ -67,7 +69,7 @@ void llpq::insert(pat in)
                 }
                 // insert before
                 in->prev=temp->prev;
-                temp->pre->next=in;
+                temp->prev->next=in;
                 in->next=temp;
                 temp->prev=in;
                 return;
@@ -108,7 +110,7 @@ void llpq::insert(pat in)
 void llpq::build(string filename)
 {
     string holder;
-    ofstream datafile;
+    ifstream datafile;
     string nam;
     int pri;
     int treat;
@@ -117,35 +119,54 @@ void llpq::build(string filename)
     {
         cout<< "File: "<< filename<< " does not exisit in current directory"<< endl;
     }
-    getline(datafile, holder);
+    getline(datafile, holder, '\r');
     string segment;
-    while(getline,holder)
+    while(getline(datafile,holder, '\r'))
     {
-    stringstream ss(holder);
-    getline(ss,segment, ',');
-    nam=segment;
-    getline(ss, segment, ',');
-    pri= stoi(segment);
-    getline(ss,segment, ',');
-    treat= stoi(segment);
-    pat temp(nam, pri, treat);
-    insert(a);
+        stringstream ss(holder);
+        getline(ss,segment, ',');
+        cout<< segment<< endl;
+        nam=segment;
+        getline(ss, segment, ',');
+        cout<< segment<< endl;
+        pri= stoi(segment);
+        getline(ss,segment, ',');
+        cout<< segment<< endl;
+        treat= stoi(segment);
+        pat temp(nam, pri, treat);
+        insert(&temp);
     }
-
+    datafile.close();
 }
 void llpq::printLLPQ()
 {
-    *pat=head;
+    pat * temp=head;
     cout<<"Rank     patient, Priotity, Treatment"<< endl;
     int i=1;
+    if(head!=NULL)
+    {
+        cout<< "head is not NULL"<< endl;
+    }
+    if(tail!=NULL)
+    {
+        cout<< "tail is not NULL"<< endl;
+    }
+    if(temp!=NULL)
+    {
+        cout<< "temp is not NULL"<< endl;
+    }
+    cout<<temp->name<<endl;
+    return;
+    //cout<< temp->priority<< endl;
+    //cout<< temp->treatment<< endl;
     while(temp->next!=NULL)
     {
-       cout<<i<<":"<< "      "<<pat->name<< ", "<<pat->priority<< ", "<< pat->treatment<< endl;
+       cout<<i<<":"<< "      "<<temp->name<< ", "<<temp->priority<< ", "<< temp->treatment<< endl;
     }
 }
-void llqp::dequeue()
+void llpq::dequeue()
 {
-    * pat temp=head;
+    pat* temp=head;
     if(temp->next==NULL)
     {
         delete temp;
@@ -157,4 +178,11 @@ void llqp::dequeue()
     delete temp->prev;
     temp->prev=NULL;
     head=temp;
+}
+void llpq::remove()
+{
+    while(head!=NULL && tail!=NULL)
+    {
+        dequeue();
+    }
 }
