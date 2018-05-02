@@ -3,6 +3,7 @@
 // definition file for the patient struct;
 #ifndef pat_h
 #define pat_h
+
 #include<string>
 struct pat
 {
