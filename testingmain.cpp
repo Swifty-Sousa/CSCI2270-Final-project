@@ -6,9 +6,19 @@
 #include"pat.hpp"
 #include<queue>
 #include<vector>
+struct compare
+{
+	bool operator () (const pat &a, const pat &b)
+	{
+		if(a->priority > b->priority)
+		{
+			return false;
+		}
+	}
+};
 void build(string filename);
 {
-	
+	priority_queue <type, vector<pat>, compare> minheap;	
 	ofstream datafile;
 	datafile.open(filename);	
 	if(datafile.fail())
@@ -25,7 +35,9 @@ void build(string filename);
 		stirngstream ss(line);
 		getline(ss, holder, '\r');
 		getline(ss, holder2, '\r');
-		getline(ss, holder3, ' \r');
+		getline(ss, holder3, '\r');
+		pat * temp= new pat(holder, stoi(holder2), stoi(holder3));
+		minheap.push(temp);
 	}
 }
 int main(int argc, char * argv[])
