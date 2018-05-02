@@ -16,7 +16,7 @@ struct compare
 		}
 	}
 };
-void build(string filename);
+void hpqbuild(string filename);
 {
 	priority_queue <type, vector<pat>, compare> minheap;	
 	ofstream datafile;
@@ -47,6 +47,6 @@ int main(int argc, char * argv[])
 		cout<< "program requres filename as command line argument"<< endl;
 	}
 	filename=argv[1];
-	build(filename);
+	hpqbuild(filename);
 }
 

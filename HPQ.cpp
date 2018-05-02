@@ -40,3 +40,18 @@ void hpq::build(string filename)
     }
     datafile.close();
 }
+void hpq::printhpq()
+{
+    
+}
+void hpq::dequeue()
+{
+
+}
+void hpq::dequeueall()
+{
+    for()
+    {
+        dequeue();
+    }
+}

@@ -13,6 +13,7 @@ struct pat
     // next and prev only for LL implementation;
     pat * next;
     pat * prev;
+    // for the min heap implementation
     pat * leftchi;
     pat * rightchi;
     pat * parent;
