@@ -3,19 +3,20 @@
 #ifndef hpq_h
 #define hpq_h
 
-#include<vector>
 #include<iostream>
 #include"pat.hpp"
 
 class hpq
 {
-    //remmber to put in holder vector here
-    std::vector<pat*> minheap;
-    hpq();
+    int datasize;
+    pat * reg[880];
+    pat * top;
+    // pointer to the highest priority;
+    hpq(int);
     ~hpq();
-    void heapify();
+    void insert(pat *)o;
     void build(std::string);
-    void print();
+    void printhpq();
     void dequeue();
     void dequeueall();
 };

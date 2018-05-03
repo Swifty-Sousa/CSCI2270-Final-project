@@ -39,12 +39,16 @@ bool operator()(const pat *a, const pat* b)
 		}
 	}
 };
-/*
-void printstl(priority_queue<vector<pat>,compare> & minstl)
+void printstl(priority_queue <pat*, vector<pat*>,compare> &minstl)
 {
+	if(minstl.empty())
+	{
+		cout<< "Vector is empty"<< endl;
+		return;
+	}
 	pat *temp;
     cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
-	int i=0;
+	int i=1;
 	while(!minstl.empty())
 	{
 		temp=minstl.top();
@@ -54,10 +58,8 @@ void printstl(priority_queue<vector<pat>,compare> & minstl)
 	}
 	
 }
-*/
-void build(string filename)
+void build(string filename, priority_queue< pat*, vector<pat*>,compare> &minstl)
 {
-	priority_queue <pat*, vector<pat*>, compare> minstl;	
 	ifstream datafile;
 	datafile.open(filename);	
 	if(datafile.fail())
@@ -78,18 +80,13 @@ void build(string filename)
 		pat * temp= new pat(holder, stoi(holder2), stoi(holder3));
 		minstl.push(temp);
 	}
-	pat *temp;
-    cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
-	int i=1;
-	while(!minstl.empty())
+}
+void removeall(priority_queue <pat*, vector<pat*>, compare> &minstl)
+{
+	while(!minstl.empty())	
 	{
-		temp=minstl.top();
 		minstl.pop();
-        cout<<i<<":"<< '\t'<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
- 	    i++;
 	}
-	
-	//printstl(minstl);
 }
 int main(int argc, char * argv[])
 {
@@ -97,7 +94,13 @@ int main(int argc, char * argv[])
 	{
 		cout<< "program requres filename as command line argument"<< endl;
 	}
+	priority_queue <pat*, vector<pat*>, compare> minstl;	
 	string filename=argv[1];
-	build(filename);
+	printstl(minstl);
+	build(filename, minstl);
+	printstl(minstl);
+	removeall(minstl);
+	printstl(minstl);
+
 }
 

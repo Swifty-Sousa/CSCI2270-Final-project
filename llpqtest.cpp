@@ -5,6 +5,7 @@
 #include<sstream>
 #include"LLPQ.hpp"
 #include"pat.hpp"
+#include<time.h>
 using namespace std;
 
 int main(int argc, char* argv[])

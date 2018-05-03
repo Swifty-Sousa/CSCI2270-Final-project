@@ -30,6 +30,7 @@ void hpq::build(string filename)
     }
     getline(datafile, holder, '\r');
     string segment;
+    int i=0;
     while(getline(datafile,holder, '\r'))
     {
         stringstream ss(holder);
@@ -40,6 +41,8 @@ void hpq::build(string filename)
         getline(ss,segment, ',');
         treat= stoi(segment);
         pat *temp= new pat(nam, pri, treat);
+        reg[i]=temp;
+        i++;
         heapify();
     }
     datafile.close();
@@ -54,7 +57,7 @@ void hpq::dequeue()
 }
 void hpq::dequeueall()
 {
-    for()
+    for(in i=0; i<datasize; i++)
     {
         dequeue();
     }

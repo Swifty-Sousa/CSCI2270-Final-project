@@ -3,18 +3,14 @@
 #include<iostream>
 #include<sstream>
 #include<fstream>
-#include"HPQ.hpp"
-#include"LLPQ.hpp"
 using namespace std;
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    string infile;
+    string infile=argv[1];
     string outfile;
     string holder;
     int lines;
-    cout<< "enter the file you would like to make a test case from"<< endl;
-    getline(cin, infile);
     cout<< "enter the destination file name (if this files does not exist in the directory a new one will be made)"<< endl;
     getline(cin, outfile);
     cout<< "enter how many lines you would like to be copied to the new file"<< endl;
@@ -29,9 +25,9 @@ int main(void)
         cout<< "File: "<< infile<< " unable to be located."<< endl;
         return 0;
     }
-    getline(indata, holder);
+    getline(indata, holder, '\r');
     int readcounter=1;
-    while(getline(indata, holder))
+    while(getline(indata, holder, '\r'))
     {
         cout<<"reading line "<< readcounter<< " of "<< lines<< endl;
         data[readcounter]=holder;
@@ -51,7 +47,7 @@ int main(void)
     cout<< "Wrting to file "<< outfile<< endl;
     ofstream out;
     out.open(outfile);
-    out<<"Name,Priotiry,Treatment"<< endl;
+    out<<"Name,Priotiry,Treatment"<<'\r';
     for(int i=0; i<lines;i++)
     {
        cout<< "writing line "<< i+1<< " of "<< lines<< endl;
