@@ -1,4 +1,3 @@
-
 Rank	patient,  Priority,  Treatment
 1:	Angelina,  30,  72
 2:	Lauren,  31,  30

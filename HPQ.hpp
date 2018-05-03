@@ -8,11 +8,9 @@
 
 class hpq
 {
-    int datasize;
-    pat * reg[880];
-    pat * top;
-    // pointer to the highest priority;
-    hpq(int);
+    //remmber to put in holder vector here
+    
+    hpq();
     ~hpq();
     void insert(pat *)o;
     void build(std::string);
