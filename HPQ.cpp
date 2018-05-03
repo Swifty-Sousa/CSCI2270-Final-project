@@ -11,6 +11,10 @@ hpq::hpq(int num)
     datasize=num;
 }
 hpq::~hpq(){}
+void hpq::heapify()
+{
+
+}
 
 void hpq::build(string filename)
 {
@@ -36,17 +40,17 @@ void hpq::build(string filename)
         getline(ss,segment, ',');
         treat= stoi(segment);
         pat *temp= new pat(nam, pri, treat);
-        insert(temp);
+        heapify();
     }
     datafile.close();
 }
 void hpq::printhpq()
 {
-    
+
 }
 void hpq::dequeue()
 {
-
+    
 }
 void hpq::dequeueall()
 {
