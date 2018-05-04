@@ -47,13 +47,13 @@ void printstl(priority_queue <pat*, vector<pat*>,compare> &minstl)
 		return;
 	}
 	pat *temp;
-    cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
+    cout<<"Rank" << "      "<< "patient,  Priority,  Treatment"<< endl;
 	int i=1;
 	while(!minstl.empty())
 	{
 		temp=minstl.top();
 		minstl.pop();
-        cout<<i<<":"<< '\t'<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
+        cout<<i<<":"<< "      "<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
  	    i++;
 	}
 	

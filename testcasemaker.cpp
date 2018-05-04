@@ -47,11 +47,11 @@ int main(int argc, char *argv[])
     cout<< "Wrting to file "<< outfile<< endl;
     ofstream out;
     out.open(outfile);
-    out<<"Name,Priotiry,Treatment"<<'\r';
+    out<<"Name,Priotiry,Treatment";
     for(int i=0; i<lines;i++)
     {
        cout<< "writing line "<< i+1<< " of "<< lines<< endl;
-       out<<data[i]<< endl;
+       out<<data[i] + '\r';
     }
     cout<< "Process completed"<< endl;
     return 0;

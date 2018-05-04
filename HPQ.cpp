@@ -5,7 +5,6 @@
 #include"HPQ.hpp"
 #include<sstream>
 #include<fstream>
-
 hpq::hpq(int num)
 {
     datasize=num;
@@ -15,7 +14,12 @@ void hpq::heapify()
 {
 
 }
-
+void hpq::swap(pat * x, pat *y)
+{
+    pat *temp=x;
+    x=y;
+    y=temp;
+}
 void hpq::build(string filename)
 {
     string holder;
@@ -42,8 +46,13 @@ void hpq::build(string filename)
         treat= stoi(segment);
         pat *temp= new pat(nam, pri, treat);
         reg[i]=temp;
+        int k=datasize-1;
+        while(i!=0 && reg[(k-1)/2]>reg[k])
+        {
+            swap(reg[k], reg[(k-1)/2]);
+            k=(k-1)/2 
+        }
         i++;
-        heapify();
     }
     datafile.close();
 }

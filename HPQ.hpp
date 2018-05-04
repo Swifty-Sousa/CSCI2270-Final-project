@@ -10,11 +10,10 @@ class hpq
 {
     int datasize;
     pat * reg[880];
-    pat * top;
     // pointer to the highest priority;
     hpq(int);
     ~hpq();
-    void insert(pat *)o;
+    void swap(pat *, pat *);
     void build(std::string);
     void printhpq();
     void dequeue();
