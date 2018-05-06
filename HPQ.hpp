@@ -20,7 +20,7 @@ public:
     bool comparison(pat*,pat*);
     void heapify(int );
     void insert( pat*);
-    void swap(pat *, pat *);
+    void swap(int,int);
     void build(std::string);
     void printhpq();
     pat * dequeue();

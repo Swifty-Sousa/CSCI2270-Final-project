@@ -16,10 +16,15 @@ int hpq::left(int i)
 }
 int  hpq::right(int i)
 {
-    return(2*1+1);
+    return(2*1+2);
 }
 bool hpq::comparison(pat *a, pat *b)
 {
+    cout<< "in compare"<< endl;;
+    cout<< "a"<< endl;
+    cout<< a->name<<  " "<< a->priority<< " "<<a->treatment<< endl;
+    cout<< "b"<< endl;
+    cout<< b->name<<  " "<< b->priority<< " " <<b->treatment<< endl;
     if(a->priority<b->priority)
     {
         return true;
@@ -54,28 +59,41 @@ hpq::~hpq(){}
 
 void hpq::heapify(int i)
 {
+    cout<< "reached heapify"<< endl;
     int l=left(i);
     int r=right(i);
     int smallest=i;
-    if(l<=current && reg[l]<reg[i] )
+    cout<< "got numbers"<< endl;
+    cout<<"left: "<< l<<endl;
+    cout<<"right: "<<r<<endl;
+    cout<< "smallest: "<< smallest<< endl;
+    cout<< "attempting comparision of l and smallest"<< endl;
+    cout<< "printing true"<< true<< endl;
+    cout<< comparison(reg[l],reg[i]);
+    cout<< "completed"<< endl;
+    if(l<current && comparison(reg[l],reg[i]))
     {
+        cout<< "one"<< endl;
         smallest=l;
     }
-    if(r<current && reg[r]<reg[smallest])
+    if(r<current && comparison(reg[r],reg[smallest]))
     {
+        cout<<"two"<< endl;
         smallest=r;
     }
     if(smallest!=i)
     {
-        swap(reg[i], reg[smallest]);
+        cout<<"three"<< endl;
+        swap(i, smallest);
         heapify(smallest);
     }
 }
-void hpq::swap(pat * x, pat *y)
+void hpq::swap(int child, int parent)
 {
-    pat *temp=x;
-    x=y;
-    y=temp;
+    pat *temp;
+    temp=reg[child];
+    reg[child]= reg[parent];
+    reg[parent]=temp;
 }
 void hpq::insert(pat *temp)
 {
@@ -87,10 +105,11 @@ void hpq::insert(pat *temp)
     current++;
     int i = current-1; 
     reg[i]=temp;// insert at the end
-    while(i>1 && comparison(reg[i],reg[parent(i)]))
+    while(i>0 && comparison(reg[i],reg[parent(i)]))
     {
+        //cout<< "this comparison is actually happening at some point"<< endl;
         // the the parent is greater than the child
-        swap(reg[i], reg[parent(i)]);
+        swap(i, parent(i));
         i= parent(i);
     }
 }
@@ -109,7 +128,7 @@ void hpq::build(string filename)
     getline(datafile, holder, '\r');
     string segment;
     //int k=1;
-    current=0;// becasue of the convetion to start binary minheaps at 1
+    current=0;
     while(getline(datafile,holder, '\r'))
     {
         //cout<<k<< ": "<< holder<< endl;
@@ -124,6 +143,12 @@ void hpq::build(string filename)
         pat *temp= new pat(nam, pri, treat);
         insert(temp);
     }
+    /*
+    for(int i=0; i<cap;i++)
+    {
+        cout<<"Rank: "<<i+1<< " "<< reg[i]->name<< " " << reg[i]->priority<<endl;
+    }
+    */
     datafile.close();
 }
 void hpq::printhpq()
@@ -144,6 +169,8 @@ void hpq::printhpq()
 }
 pat * hpq::dequeue()
 {
+    cout<< "reached dequeue"<< endl;
+    cout<< endl;
     if(current==0)
     {
         cout<< "Empty"<< endl;
@@ -157,13 +184,18 @@ pat * hpq::dequeue()
     pat * poppat= reg[1];
     reg[1]=reg[current];
     current--;
+    cout<<"attempting heapify"<< endl;
     heapify(1);
+    cout<<endl;
+    cout<<"completed"<<endl;
     return poppat;
 }
 void hpq::dequeueall()
 {
+    int i=1;
     while(current!=0)
     {
+        cout<< "trying "<< i<< endl;
         dequeue();
     }
 }

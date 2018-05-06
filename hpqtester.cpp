@@ -14,6 +14,7 @@ int main(int argc, char * argv[])
     string filename=argv[1];
     hpq kmp(880);
     kmp.build(filename);
+    cout<< "build completed"<< endl;
     kmp.printhpq();
     return 0;
 }
