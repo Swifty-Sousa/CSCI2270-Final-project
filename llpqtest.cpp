@@ -18,18 +18,25 @@ int main(int argc, char* argv[])
     float holder[500];
     for(int i=0; i<500; i++)
     {
-        t1=clock();
         llpq test;
-        test.buildlimited(argv[1], 300);
+        test.buildlimited(argv[1], 200);
+        test.printLLPQ();
+        t1=clock();
+        test.remove();
+        cout<< "here"<< endl;
+        test.printLLPQ();
         t2=clock();
+        cout<< "wat"<< endl;
         //cout<< "if you see this it is building"<< endl;
         //test.printLLPQ();
         holder[i]=((float)t2-(float)t1)/ CLOCKS_PER_SEC;
+        cout<<"why is this segfaulting"<< endl;
         t1=0;
         t2=0;
+        cout<<"end of line ?"<< endl;
     }
     ofstream outfile;
-    outfile.open("runtimetest.txt");
+    outfile.open("llpqD200.txt");
     for(int i=0; i<500; i++)
     {
         outfile<<holder[i]<<endl;

@@ -177,6 +177,11 @@ void llpq::build(string filename)
 void llpq::printLLPQ()
 {
     pat * temp=head;
+    if(temp==NULL)
+    {
+        cout<< "empty"<< endl;
+        return;
+    }
     cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
     int i=1;
     if(temp->next==NULL)
@@ -192,7 +197,13 @@ void llpq::printLLPQ()
 }
 void llpq::dequeue()
 {
+    if(head==NULL)
+    {
+        cout<< "head is null"<< endl;
+        return;
+    }
     pat* temp=head;
+    cout<< temp->name<< endl;
     if(temp->next==NULL)
     {
         delete temp;
@@ -211,4 +222,6 @@ void llpq::remove()
     {
         dequeue();
     }
+    head==NULL;
+    tail==NULL;
 }

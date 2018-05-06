@@ -11,8 +11,8 @@ struct pat
     int priority;
     int treatment;
     // next and prev only for LL implementation;
-    pat * next;
-    pat * prev;
+    pat * next=NULL;
+    pat * prev=NULL;
     pat(){}
     pat(std::string n, int p, int e)
     {
