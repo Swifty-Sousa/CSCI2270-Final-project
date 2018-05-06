@@ -5,7 +5,19 @@
 #include"HPQ.hpp"
 #include<sstream>
 #include<fstream>
-
+using namespace std;
+int hpq::parent(int i)
+{
+     return((i-1)/2);
+}
+int hpq::left(int i)
+{
+    return(2*i+1);
+}
+int  hpq::right(int i)
+{
+    return(2*1+1);
+}
 bool hpq::comparison(pat *a, pat *b)
 {
     if(a->priority<b->priority)
@@ -36,24 +48,28 @@ bool hpq::comparison(pat *a, pat *b)
 }
 hpq::hpq(int num)
 {
-    datasize=0;
+    datasize=num;
 }
 hpq::~hpq(){}
 
 void hpq::heapify(int i);
 {
-    pat *l=reg[left(i)];
-    pat *r=reg[right(i)];
-    pat *parent= reg[i];
-    if(l<datasize && reg[l]<reg[i])
+    int l=left(i);
+    int r=right(i);
+    int smallest=i;
+    if(l<=current && reg[l]<reg[i] )
     {
-        smallest=i;
+        smallest=l;
     }
-    if(r<datasize && reg[r]<reg[smallest] )
+    if(r<current && reg[r]<reg[smallest])
     {
         smallest=r;
     }
-    
+    if(smallest!=i)
+    {
+        swap(reg[i], reg[smallest]);
+        heapify(smallest);
+    }
 }
 void hpq::swap(pat * x, pat *y)
 {
@@ -71,11 +87,11 @@ void hpq::insert(pat *temp)
     datasize++;
     int i =datasize; 
     reg[i]=temp;// insert at the end
-    while(i>1 && comparison(reg[i],reg[i/2]))
+    while(i>1 && comparison(reg[i],reg[parent(i)]))
     {
         // the the parent is greater than the child
-        swap(reg[i], reg[i/2]);
-        i= i/2;
+        swap(reg[i], reg[parent(i)]);
+        i= reg[paretn(i)];
     }
 }
 void hpq::build(string filename)
@@ -109,9 +125,19 @@ void hpq::build(string filename)
 }
 void hpq::printhpq()
 {
-
+    cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
+    pat * temp;
+    while()
+    {
+       temp=dequeue()
+       if(temp==NULL)
+       {
+           return;
+       }
+       cout<<i<<":"<< '\t'<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
+    }
 }
-pat * hpq::dequeue(int i)
+pat * hpq::dequeue()
 {
     if(current==0)
     {
@@ -120,13 +146,18 @@ pat * hpq::dequeue(int i)
     }
     else if(current==1)
     {
+        current--;
         return reg[1]:
     }
-    
+    pat * poppat= reg[1];
+    reg[1]=reg[current];
+    current--;
+    heapify(1);
+    return poppat;
 }
 void hpq::dequeueall()
 {
-    for(in i=0; i<datasize; i++)
+    while(current!=0)
     {
         dequeue();
     }
