@@ -131,7 +131,7 @@ int main(int argc, char * argv[])
 	for(int i=0; i<500; i++)
 	{
 		t1=clock();
-		buildlimited(filename, minstl, 800);
+		buildlimited(filename, minstl, 700);
 		removeall(minstl);
 		t2=clock();
         holder[i]=((float)t2-(float)t1)/ CLOCKS_PER_SEC;
@@ -139,7 +139,7 @@ int main(int argc, char * argv[])
 		t2=0;
 	}
     ofstream outfile;
-    outfile.open("stlT800.txt");
+    outfile.open("stlT700.txt");
     for(int i=0; i<500; i++)
     {
         outfile<<holder[i]<<endl;

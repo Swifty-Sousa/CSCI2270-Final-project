@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     {
         t1=clock();
         llpq test;
-        test.buildlimited(argv[1], 800);
+        test.buildlimited(argv[1], 700);
         test.remove();
         t2=clock();
         //cout<< "if you see this it is building"<< endl;
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
         t2=0;
     }
     ofstream outfile;
-    outfile.open("llpqT800.txt");
+    outfile.open("llpqT700.txt");
     for(int i=0; i<500; i++)
     {
         outfile<<holder[i]<<endl;
