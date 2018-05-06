@@ -19,12 +19,32 @@ int  hpq::right(int i)
     return(2*1+2);
 }
 bool hpq::comparison(pat *a, pat *b)
-{
+{/*
     cout<< "in compare"<< endl;;
+    for(int i=0; i<cap; i++)
+    {
+        if(reg[i]==NULL)
+        {
+            cout<<" reg[] at "<< i<< " is NULL"<< endl;
+        }
+    }
     cout<< "a"<< endl;
+    if(a==NULL)
+    {
+        cout<< "a is NULL";
+    }
     cout<< a->name<<  " "<< a->priority<< " "<<a->treatment<< endl;
     cout<< "b"<< endl;
+    if(b!=NULL)
+    {
     cout<< b->name<<  " "<< b->priority<< " " <<b->treatment<< endl;
+    }
+    if(reg[0]!=NULL)
+    {
+        cout<< " 0 is not NUll and I wanna cry"<< endl;
+    }
+    cout<< b->name<<  " "<< b->priority<< " " <<b->treatment<< endl;
+    */
     if(a->priority<b->priority)
     {
         return true;
@@ -47,47 +67,22 @@ bool hpq::comparison(pat *a, pat *b)
         else
         {
             //case where both mesures are the same
-            return false;
+            return true;
         }
     }
 }
 hpq::hpq(int num)
 {
+    current=0;
     cap=num;
+    for(int i=0; i<cap; i++)
+    {
+        reg[i]=NULL;
+    }
 }
 hpq::~hpq(){}
 
-void hpq::heapify(int i)
-{
-    cout<< "reached heapify"<< endl;
-    int l=left(i);
-    int r=right(i);
-    int smallest=i;
-    cout<< "got numbers"<< endl;
-    cout<<"left: "<< l<<endl;
-    cout<<"right: "<<r<<endl;
-    cout<< "smallest: "<< smallest<< endl;
-    cout<< "attempting comparision of l and smallest"<< endl;
-    cout<< "printing true"<< true<< endl;
-    cout<< comparison(reg[l],reg[i]);
-    cout<< "completed"<< endl;
-    if(l<current && comparison(reg[l],reg[i]))
-    {
-        cout<< "one"<< endl;
-        smallest=l;
-    }
-    if(r<current && comparison(reg[r],reg[smallest]))
-    {
-        cout<<"two"<< endl;
-        smallest=r;
-    }
-    if(smallest!=i)
-    {
-        cout<<"three"<< endl;
-        swap(i, smallest);
-        heapify(smallest);
-    }
-}
+
 void hpq::swap(int child, int parent)
 {
     pat *temp;
@@ -128,7 +123,6 @@ void hpq::build(string filename)
     getline(datafile, holder, '\r');
     string segment;
     //int k=1;
-    current=0;
     while(getline(datafile,holder, '\r'))
     {
         //cout<<k<< ": "<< holder<< endl;
@@ -143,10 +137,14 @@ void hpq::build(string filename)
         pat *temp= new pat(nam, pri, treat);
         insert(temp);
     }
+    if(reg[1]==NULL)
+    {
+        cout<< "problem is here"<< endl;
+    }
     /*
     for(int i=0; i<cap;i++)
     {
-        cout<<"Rank: "<<i+1<< " "<< reg[i]->name<< " " << reg[i]->priority<<endl;
+        cout<<"Rank: "<<i<< " "<< reg[i]->name<< " " << reg[i]->priority<<endl;
     }
     */
     datafile.close();
@@ -167,10 +165,48 @@ void hpq::printhpq()
        i++;
     }
 }
+void hpq::heapify(int i)
+{
+
+    //cout<< "reached heapify"<< endl;
+    int l=left(i);
+    int r=right(i);
+    int smallest=i;
+    cout<< "got numbers"<< endl;
+    cout<<"left: "<< l<<endl;
+    cout<<"right: "<<r<<endl;
+    cout<< "smallest: "<< smallest<< endl;
+    cout<< "attempting comparision of l and smallest"<< endl;
+    for(int i=0; i<current; i++)
+    {
+        if(reg[i]==NULL)
+        {
+            cout<<"NULL at "<< i<< endl;
+        }
+    }
+    //cout<< "printing true"<< true<< endl;
+    //cout<< comparison(reg[l],reg[i]);
+    //cout<< "completed"<< endl;
+    if(l<current && comparison(reg[l],reg[i]))
+    {
+        //cout<< "one"<< endl;
+        smallest=l;
+    }
+    if(r<current && comparison(reg[r],reg[smallest]))
+    {
+        //cout<<"two"<< endl;
+        smallest=r;
+    }
+    if(smallest!=i)
+    {
+        cout<<"three"<< endl;
+        swap(i, smallest);
+        heapify(smallest);
+    }
+}
 pat * hpq::dequeue()
 {
     cout<< "reached dequeue"<< endl;
-    cout<< endl;
     if(current==0)
     {
         cout<< "Empty"<< endl;
@@ -179,13 +215,13 @@ pat * hpq::dequeue()
     else if(current==1)
     {
         current--;
-        return reg[1];
+        return reg[0];
     }
-    pat * poppat= reg[1];
-    reg[1]=reg[current];
+    pat * poppat= reg[0];
+    reg[0]=reg[current-1];
     current--;
     cout<<"attempting heapify"<< endl;
-    heapify(1);
+    heapify(0);
     cout<<endl;
     cout<<"completed"<<endl;
     return poppat;

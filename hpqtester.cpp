@@ -12,9 +12,15 @@ int main(int argc, char * argv[])
         cout<< "filename please"<< endl;
     }
     string filename=argv[1];
-    hpq kmp(880);
+    hpq kmp(881);
     kmp.build(filename);
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
     cout<< "build completed"<< endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<endl;
     kmp.printhpq();
     return 0;
 }
