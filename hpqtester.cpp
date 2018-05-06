@@ -1,6 +1,8 @@
 //Author: Christain F. Sousa
 // CSCI 2270
 #include<iostream>
+#include<string>
+#include"HPQ.hpp"
 using namespace std;
 
 int main(int argc, char * argv[])
@@ -12,6 +14,6 @@ int main(int argc, char * argv[])
     string filename=argv[1];
     hpq kmp(880);
     kmp.build(filename);
-    hmp.printhpq();
+    kmp.printhpq();
     return 0;
 }

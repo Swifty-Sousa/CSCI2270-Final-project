@@ -112,7 +112,40 @@ void llpq::insert(pat *in)
         }
     }
 }
-
+void llpq::buildlimited(string filename, int size)
+{
+    string holder;
+    ifstream datafile;
+    string nam;
+    int pri;
+    int treat;
+    datafile.open(filename);
+    if(datafile.fail())
+    {
+        cout<< "File: "<< filename<< " does not exisit in current directory"<< endl;
+    }
+    getline(datafile, holder, '\r');
+    string segment;
+    int i=0;
+    while(getline(datafile,holder, '\r'))
+    {
+        if(i==size)
+        {
+            break;
+        }
+        i++;
+        stringstream ss(holder);
+        getline(ss,segment, ',');
+        nam=segment;
+        getline(ss, segment, ',');
+        pri= stoi(segment);
+        getline(ss,segment, ',');
+        treat= stoi(segment);
+        pat *temp= new pat(nam, pri, treat);
+        insert(temp);
+    }
+    datafile.close();
+}
 void llpq::build(string filename)
 {
     string holder;

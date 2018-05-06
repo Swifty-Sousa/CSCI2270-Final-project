@@ -14,6 +14,7 @@ class llpq
         void dequeue(); // removes from head;
         void printLLPQ();// for checking my answers with expected output from moodle;
         void remove();
+        void buildlimited(std::string, int );// used for testing
         pat* head;
         pat* tail; 
 };

@@ -48,11 +48,11 @@ bool hpq::comparison(pat *a, pat *b)
 }
 hpq::hpq(int num)
 {
-    datasize=num;
+    cap=num;
 }
 hpq::~hpq(){}
 
-void hpq::heapify(int i);
+void hpq::heapify(int i)
 {
     int l=left(i);
     int r=right(i);
@@ -79,19 +79,19 @@ void hpq::swap(pat * x, pat *y)
 }
 void hpq::insert(pat *temp)
 {
-    if(current=cap)
+    if(current==cap)
     {
         cout<< "array is full"<< endl;
         return;
     }
-    datasize++;
-    int i =datasize; 
+    current++;
+    int i = current-1; 
     reg[i]=temp;// insert at the end
     while(i>1 && comparison(reg[i],reg[parent(i)]))
     {
         // the the parent is greater than the child
         swap(reg[i], reg[parent(i)]);
-        i= reg[paretn(i)];
+        i= parent(i);
     }
 }
 void hpq::build(string filename)
@@ -108,9 +108,12 @@ void hpq::build(string filename)
     }
     getline(datafile, holder, '\r');
     string segment;
-    datasize=1;// becasue of the convetion to start binary minheaps at 1
+    //int k=1;
+    current=0;// becasue of the convetion to start binary minheaps at 1
     while(getline(datafile,holder, '\r'))
     {
+        //cout<<k<< ": "<< holder<< endl;
+        //k++;
         stringstream ss(holder);
         getline(ss,segment, ',');
         nam=segment;
@@ -127,14 +130,16 @@ void hpq::printhpq()
 {
     cout<<"Rank" << '\t'<< "patient,  Priority,  Treatment"<< endl;
     pat * temp;
-    while()
+    int i=1;
+    while(true)
     {
-       temp=dequeue()
+       temp=dequeue();
        if(temp==NULL)
        {
            return;
        }
        cout<<i<<":"<< '\t'<<temp->name<< ",  "<<temp->priority<< ",  "<< temp->treatment<< endl;
+       i++;
     }
 }
 pat * hpq::dequeue()
@@ -142,12 +147,12 @@ pat * hpq::dequeue()
     if(current==0)
     {
         cout<< "Empty"<< endl;
-        reutn NULL;
+        return NULL;
     }
     else if(current==1)
     {
         current--;
-        return reg[1]:
+        return reg[1];
     }
     pat * poppat= reg[1];
     reg[1]=reg[current];

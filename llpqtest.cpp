@@ -14,10 +14,23 @@ int main(int argc, char* argv[])
     {
         cout<< "Program requires a filename"<< endl;
     }
-    llpq test;
-    test.build(argv[1]);
-    //cout<< "if you see this it is building"<< endl;
-    test.printLLPQ();
-    cout<< "testcase complete"<< endl;
+    clock_t  t1, t2;
+    float holder[500];
+    for(int i=0; i<500; i++)
+    {
+        t1=clock();
+        llpq test;
+        test.buildlimited(argv[1], 100);
+        t2=clock();
+        //cout<< "if you see this it is building"<< endl;
+        //test.printLLPQ();
+        holder[i]=((float)t2-(float)t1)/ CLOCKS_PER_SEC;
+    }
+    ofstream outfile;
+    outfile.open("runtimetest.txt");
+    for(int i=0; i<500; i++)
+    {
+        outfile<<holder[i]<<endl;
+    }
     return 0;
 }
