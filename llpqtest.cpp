@@ -20,11 +20,13 @@ int main(int argc, char* argv[])
     {
         t1=clock();
         llpq test;
-        test.buildlimited(argv[1], 100);
+        test.buildlimited(argv[1], 300);
         t2=clock();
         //cout<< "if you see this it is building"<< endl;
         //test.printLLPQ();
         holder[i]=((float)t2-(float)t1)/ CLOCKS_PER_SEC;
+        t1=0;
+        t2=0;
     }
     ofstream outfile;
     outfile.open("runtimetest.txt");
