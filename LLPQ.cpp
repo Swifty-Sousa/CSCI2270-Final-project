@@ -203,7 +203,6 @@ void llpq::dequeue()
         return;
     }
     pat* temp=head;
-    cout<< temp->name<< endl;
     if(temp->next==NULL)
     {
         delete temp;
