@@ -5,6 +5,18 @@
 #include"HPQ.hpp"
 #include<sstream>
 #include<fstream>
+int hpq::parent(int i)
+{
+    return((i-1)/2);
+}
+int hpq::right(int i)
+{
+    return(2*i+2);
+}
+int hpq::left(int i)
+{
+    return(2*i+1);
+}
 hpq::hpq(int num)
 {
     datasize=num;
@@ -20,6 +32,15 @@ void hpq::swap(pat * x, pat *y)
     x=y;
     y=temp;
 }
+void hpq::insert(int i, pat *temp)
+{
+    reg[i]=temp;// insert at the end
+    while(i!=0 && reg[parent(i)>reg[i])
+    {
+        swap(reg[i], reg[parent(i)]);
+        i=parent(i);
+    }
+}
 void hpq::build(string filename)
 {
     string holder;
@@ -34,7 +55,7 @@ void hpq::build(string filename)
     }
     getline(datafile, holder, '\r');
     string segment;
-    int i=0;
+    int i=1;// becasue of the convetion to start binary minheaps at 1
     while(getline(datafile,holder, '\r'))
     {
         stringstream ss(holder);
