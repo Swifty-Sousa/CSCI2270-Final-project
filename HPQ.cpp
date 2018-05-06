@@ -5,26 +5,55 @@
 #include"HPQ.hpp"
 #include<sstream>
 #include<fstream>
-int hpq::parent(int i)
+
+bool hpq::comparison(pat *a, pat *b)
 {
-    return((i-1)/2);
-}
-int hpq::right(int i)
-{
-    return(2*i+2);
-}
-int hpq::left(int i)
-{
-    return(2*i+1);
+    if(a->priority<b->priority)
+    {
+        return true;
+    }
+    else if(a->priority>b->priority)
+    {
+        return false;
+    }
+    else
+    {
+        // case where the priorities are the same
+        if(a->treatment<b->treatment)
+        {
+            return true;
+        }
+        else if(a->treatment>b->treatment)
+        {
+            return false;
+        }
+        else
+        {
+            //case where both mesures are the same
+            return false;
+        }
+    }
 }
 hpq::hpq(int num)
 {
-    datasize=num;
+    datasize=0;
 }
 hpq::~hpq(){}
-void hpq::heapify()
-{
 
+void hpq::heapify(int i);
+{
+    pat *l=reg[left(i)];
+    pat *r=reg[right(i)];
+    pat *parent= reg[i];
+    if(l<datasize && reg[l]<reg[i])
+    {
+        smallest=i;
+    }
+    if(r<datasize && reg[r]<reg[smallest] )
+    {
+        smallest=r;
+    }
+    
 }
 void hpq::swap(pat * x, pat *y)
 {
@@ -32,13 +61,21 @@ void hpq::swap(pat * x, pat *y)
     x=y;
     y=temp;
 }
-void hpq::insert(int i, pat *temp)
+void hpq::insert(pat *temp)
 {
-    reg[i]=temp;// insert at the end
-    while(i!=0 && reg[parent(i)>reg[i])
+    if(current=cap)
     {
-        swap(reg[i], reg[parent(i)]);
-        i=parent(i);
+        cout<< "array is full"<< endl;
+        return;
+    }
+    datasize++;
+    int i =datasize; 
+    reg[i]=temp;// insert at the end
+    while(i>1 && comparison(reg[i],reg[i/2]))
+    {
+        // the the parent is greater than the child
+        swap(reg[i], reg[i/2]);
+        i= i/2;
     }
 }
 void hpq::build(string filename)
@@ -55,7 +92,7 @@ void hpq::build(string filename)
     }
     getline(datafile, holder, '\r');
     string segment;
-    int i=1;// becasue of the convetion to start binary minheaps at 1
+    datasize=1;// becasue of the convetion to start binary minheaps at 1
     while(getline(datafile,holder, '\r'))
     {
         stringstream ss(holder);
@@ -66,14 +103,7 @@ void hpq::build(string filename)
         getline(ss,segment, ',');
         treat= stoi(segment);
         pat *temp= new pat(nam, pri, treat);
-        reg[i]=temp;
-        int k=datasize-1;
-        while(i!=0 && reg[(k-1)/2]>reg[k])
-        {
-            swap(reg[k], reg[(k-1)/2]);
-            k=(k-1)/2 
-        }
-        i++;
+        insert(temp);
     }
     datafile.close();
 }
@@ -81,8 +111,17 @@ void hpq::printhpq()
 {
 
 }
-void hpq::dequeue()
+pat * hpq::dequeue(int i)
 {
+    if(current==0)
+    {
+        cout<< "Empty"<< endl;
+        reutn NULL;
+    }
+    else if(current==1)
+    {
+        return reg[1]:
+    }
     
 }
 void hpq::dequeueall()
